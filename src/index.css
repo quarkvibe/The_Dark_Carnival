@@ -1,0 +1,655 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --carnival-bg: #050508;
+  --tent-purple: #1a0829;
+  --tent-red: #290000;
+  --tent-blue: #000829;
+  --tent-green: #001a00;
+  --accent-gold: #8b0000;
+  --text-light: #b3b3cc;
+  --shadow-color: rgba(0, 0, 0, 0.9);
+  --glow-purple: rgba(139, 0, 0, 0.5);
+  
+  /* Animation speeds */
+  --animation-slow: 15s;
+  --animation-medium: 8s;
+  --animation-fast: 3s;
+}
+
+/* High contrast mode variables */
+.high-contrast {
+  --carnival-bg: #000000;
+  --tent-purple: #4a0066;
+  --tent-red: #660000;
+  --tent-blue: #000066;
+  --tent-green: #004400;
+  --accent-gold: #cc0000;
+  --text-light: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.95);
+  --glow-purple: rgba(255, 0, 0, 0.6);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Crimson Text', serif;
+  background-color: var(--carnival-bg);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* Carnival container */
+.carnival-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Parallax background layers */
+.carnival-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sky {
+  background-image: url('https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg?auto=compress&cs=tinysrgb&w=1600');
+  filter: brightness(0.3) contrast(1.2) saturate(0.8);
+  animation: sky-shift var(--animation-slow) infinite alternate;
+}
+
+.clouds {
+  background-image: url('https://images.pexels.com/photos/2088205/pexels-photo-2088205.jpeg?auto=compress&cs=tinysrgb&w=1600');
+  opacity: 0.2;
+  filter: brightness(0.4) contrast(1.3);
+  animation: clouds-drift var(--animation-medium) infinite linear;
+}
+
+.distant-tents {
+  background-position: bottom center;
+  background-size: contain;
+  opacity: 0.4;
+}
+
+.ground {
+  background-image: url('https://images.pexels.com/photos/9754/mountains-clouds-forest-fog.jpg?auto=compress&cs=tinysrgb&w=1600');
+  background-position: bottom center;
+  background-size: cover;
+  height: 30%;
+  bottom: 0;
+  top: auto;
+  filter: brightness(0.2) contrast(1.4) saturate(0.6);
+}
+
+/* Ambient effects */
+.floating-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 65% 35%, rgba(139, 0, 0, 0.15) 0%, transparent 25%),
+                    radial-gradient(circle at 30% 65%, rgba(75, 0, 130, 0.15) 0%, transparent 20%),
+                    radial-gradient(circle at 80% 70%, rgba(128, 0, 0, 0.15) 0%, transparent 15%);
+  animation: lights-flicker var(--animation-medium) infinite alternate;
+}
+
+.fog-effect {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  opacity: 0.6;
+  animation: fog-movement var(--animation-slow) infinite alternate;
+}
+
+/* Main carnival midway */
+.carnival-midway {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Carnival entrance header */
+.carnival-entrance {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: entrance-reveal 2s ease-out;
+}
+
+.carnival-title {
+  font-family: 'Creepster', cursive;
+  font-size: 4.5rem;
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px var(--glow-purple),
+               0 0 20px var(--shadow-color),
+               0 0 30px rgba(139, 0, 0, 0.4);
+  letter-spacing: 4px;
+  margin-bottom: 0.5rem;
+  transform: skew(-5deg);
+}
+
+.carnival-tagline {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  opacity: 0.7;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Attractions map */
+.attractions-map {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Attraction styling */
+.attraction {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.attraction:hover {
+  transform: translateY(-10px);
+}
+
+/* Tent styling */
+.tent {
+  width: 100%;
+  height: 220px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 10px 15px var(--shadow-color));
+  transition: all 0.3s ease;
+}
+
+.tent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center 30%, rgba(139, 0, 0, 0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.attraction:hover .tent::before {
+  opacity: 1;
+}
+
+.astrology-tent {
+  background-color: var(--tent-purple);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.necromancer-tent {
+  background-color: var(--tent-red);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.tarot-tent {
+  background-color: var(--tent-blue);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.zohar-tent {
+  background-color: var(--tent-green);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+/* Tent entrance animation */
+.tent-entrance {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9) 70%, rgba(139, 0, 0, 0.3));
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  animation: entrance-glow var(--animation-fast) infinite alternate;
+}
+
+/* Character silhouettes */
+.character-silhouette {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.95);
+  clip-path: polygon(30% 0%, 70% 0%, 90% 30%, 90% 100%, 10% 100%, 10% 30%);
+  opacity: 0.9;
+  transition: all 0.5s ease;
+}
+
+.attraction:hover .character-silhouette {
+  animation: silhouette-movement 3s infinite alternate;
+  opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5));
+}
+
+/* Attraction details */
+.attraction-details {
+  text-align: center;
+  padding: 1.2rem;
+  width: 100%;
+  background: rgba(5, 5, 8, 0.9);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  border-radius: 3px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.attraction-details h2 {
+  font-family: 'Creepster', cursive;
+  color: var(--accent-gold);
+  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+}
+
+.attraction-details p {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.enter-button {
+  background: linear-gradient(to bottom, #400000, #200000);
+  color: #ffffff;
+  border: 1px solid var(--accent-gold);
+  padding: 0.6rem 1.8rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.enter-button:hover {
+  background: linear-gradient(to bottom, #600000, #400000);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+  transform: scale(1.05);
+}
+
+/* Ticket booth styling */
+.ticket-booth {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.booth-structure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--tent-purple);
+  border-radius: 5px;
+  border: 2px solid var(--accent-gold);
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+}
+
+.booth-window {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+}
+
+.booth-window h2 {
+  font-family: 'Creepster', cursive;
+  color: var(--accent-gold);
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+}
+
+.booth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.booth-buttons button {
+  background: linear-gradient(to bottom, #400000, #200000);
+  color: #ffffff;
+  border: 1px solid var(--accent-gold);
+  padding: 0.5rem 1.2rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.booth-buttons button:hover {
+  background: linear-gradient(to bottom, #600000, #400000);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+}
+
+/* Modal styling */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: var(--carnival-bg);
+  border: 2px solid var(--accent-gold);
+  border-radius: 3px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  font-family: 'Creepster', cursive;
+  color: var(--accent-gold);
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 2.2rem;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  color: var(--text-light);
+  border: 1px solid var(--accent-gold);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background-color: rgba(139, 0, 0, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Passport styling */
+.passport-pages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.passport-pages h3 {
+  color: var(--accent-gold);
+  margin-bottom: 0.8rem;
+  font-family: 'Creepster', cursive;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+}
+
+.passport-visits, .passport-stamps, .passport-collections {
+  background-color: rgba(5, 5, 8, 0.9);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  border-radius: 3px;
+  padding: 1.5rem;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* About content styling */
+.about-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Settings panel */
+.settings-panel {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.settings-toggle {
+  background: rgba(5, 5, 8, 0.8);
+  border: 1px solid var(--accent-gold);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--accent-gold);
+  transition: all 0.3s ease;
+}
+
+.settings-toggle:hover {
+  background: rgba(139, 0, 0, 0.3);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+}
+
+.settings-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: var(--carnival-bg);
+  border: 1px solid var(--accent-gold);
+  border-radius: 3px;
+  padding: 1.5rem;
+  width: 250px;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+}
+
+.settings-menu h2 {
+  font-family: 'Creepster', cursive;
+  color: var(--accent-gold);
+  margin-bottom: 1.2rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.4);
+}
+
+.settings-options {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting select, .setting input[type="checkbox"] {
+  background: rgba(5, 5, 8, 0.8);
+  color: var(--text-light);
+  border: 1px solid var(--accent-gold);
+  padding: 0.4rem;
+  border-radius: 2px;
+}
+
+/* Animations */
+@keyframes entrance-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sky-shift {
+  0% {
+    filter: hue-rotate(0deg) brightness(0.2) contrast(1.2);
+  }
+  100% {
+    filter: hue-rotate(30deg) brightness(0.15) contrast(1.3);
+  }
+}
+
+@keyframes clouds-drift {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes lights-flicker {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes fog-movement {
+  0% {
+    transform: translateX(-5%) translateY(0%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(5%) translateY(2%);
+    opacity: 0.7;
+  }
+}
+
+@keyframes entrance-glow {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes silhouette-movement {
+  0% {
+    transform: translateX(-50%) rotate(-3deg) scale(0.98);
+  }
+  100% {
+    transform: translateX(-50%) rotate(3deg) scale(1.02);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .carnival-title {
+    font-size: 2.8rem;
+  }
+  
+  .attractions-map {
+    grid-template-columns: 1fr;
+  }
+  
+  .tent {
+    height: 180px;
+  }
+
+  .settings-menu {
+    width: 200px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .carnival-title {
+    font-size: 3.5rem;
+  }
+}
+
+/* Animation control based on user preference */
+[data-animation="low"] .floating-lights,
+[data-animation="low"] .fog-effect,
+[data-animation="low"] .clouds {
+  animation-play-state: paused;
+}
+
+[data-animation="off"] .floating-lights,
+[data-animation="off"] .fog-effect,
+[data-animation="off"] .clouds,
+[data-animation="off"] .tent-entrance,
+[data-animation="off"] .character-silhouette,
+[data-animation="off"] .sky {
+  animation: none;
+}
